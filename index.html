@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>You're Invited — Argyrios' Birthday</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Serif+Display:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --ink: #2c2820;
+    --dark: #3a3529;
+    --cream: #faf6ee;
+    --cream-dark: #ede7d9;
+    --gold: #c9a84c;
+    --gold-light: #e2cc83;
+    --gold-bright: #f0dfa0;
+    --gold-dark: #a07e2e;
+    --terracotta: #d4896a;
+    --olive: #8a9e68;
+    --olive-light: #a8b88a;
+    --warm-gray: #9e9588;
+    --warm-gray-light: #c2bbb0;
+    --marble: #f5f0e6;
+    --text-dark: #3d372e;
+    --text-mid: #6b6257;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--text-dark);
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+  }
+
+  /* === LOGIN GATE === */
+  .login-overlay {
+    position: fixed;
+    inset: 0;
+    background: var(--cream);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+  }
+
+  .login-overlay.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .login-box {
+    width: 90%;
+    max-width: 420px;
+    text-align: center;
+    padding: 3rem 2.5rem;
+    border: 1px solid rgba(201, 168, 76, 0.3);
+    position: relative;
+    background: var(--marble);
+  }
+
+  .login-box::before {
+    content: '';
+    position: absolute;
+    top: 7px; left: 7px; right: 7px; bottom: 7px;
+    border: 1px solid rgba(201, 168, 76, 0.15);
+    pointer-events: none;
+  }
+
+  .login-laurel {
+    width: 60px;
+    height: auto;
+    margin: 0 auto 1.2rem;
+    display: block;
+    opacity: 0.5;
+  }
+
+  .login-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: 0.08em;
+    margin-bottom: 0.3rem;
+  }
+
+  .login-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--warm-gray);
+    margin-bottom: 2rem;
+  }
+
+  .login-field {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.4rem;
+    margin-bottom: 1.2rem;
+    text-align: left;
+  }
+
+  .login-field label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+  }
+
+  .login-field input {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    padding: 0.7rem 1rem;
+    border: 1px solid rgba(201, 168, 76, 0.3);
+    background: var(--cream);
+    color: var(--text-dark);
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+
+  .login-field input:focus {
+    border-color: var(--gold);
+  }
+
+  .login-field input::placeholder {
+    color: var(--warm-gray-light);
+    font-style: italic;
+  }
+
+  .login-btn {
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cream);
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+    border: none;
+    padding: 0.9rem 2.5rem;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    transition: all 0.3s ease;
+    width: 100%;
+  }
+
+  .login-btn:hover {
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    color: var(--ink);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(201, 168, 76, 0.3);
+  }
+
+  .login-error {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.95rem;
+    color: var(--terracotta);
+    margin-top: 1rem;
+    min-height: 1.4em;
+    font-style: italic;
+  }
+
+  .login-meander {
+    position: absolute;
+    left: 0; right: 0;
+    height: 30px;
+    overflow: hidden;
+    opacity: 0.2;
+  }
+  .login-meander--top { top: -30px; }
+  .login-meander--bottom { bottom: -30px; transform: rotate(180deg); }
+
+  /* === HERO === */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 2rem;
+    cursor: default;
+    background: linear-gradient(180deg, #f7f1e5 0%, var(--cream) 40%, var(--cream-dark) 100%);
+  }
+
+  .particles {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .particle {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: var(--gold);
+    border-radius: 50%;
+    opacity: 0;
+    animation: float-up linear infinite;
+  }
+
+  @keyframes float-up {
+    0% { opacity: 0; transform: translateY(100vh) scale(0); }
+    10% { opacity: 0.6; }
+    90% { opacity: 0.2; }
+    100% { opacity: 0; transform: translateY(-10vh) scale(1); }
+  }
+
+  .meander-top, .meander-bottom {
+    position: absolute;
+    left: 0; right: 0;
+    height: 40px;
+    overflow: hidden;
+    opacity: 0.25;
+  }
+  .meander-top { top: 0; }
+  .meander-bottom { bottom: 0; transform: rotate(180deg); }
+
+  .meander-svg { width: 100%; height: 100%; }
+
+  .olive-left, .olive-right {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 60px;
+    opacity: 0.25;
+    transition: opacity 0.6s ease;
+  }
+  .olive-left { left: 1.5rem; }
+  .olive-right { right: 1.5rem; transform: translateY(-50%) scaleX(-1); }
+  .hero:hover .olive-left, .hero:hover .olive-right { opacity: 0.5; }
+
+  .prelude {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.45em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    opacity: 0;
+    animation: revealDown 0.8s ease-out 0.3s forwards;
+  }
+
+  .name-wrap {
+    margin: 1rem 0 0.6rem;
+    position: relative;
+    opacity: 0;
+    animation: revealScale 1s ease-out 0.6s forwards;
+  }
+
+  .name {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(2.6rem, 7vw, 4.2rem);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    line-height: 1.15;
+    text-align: center;
+    background: linear-gradient(180deg, var(--ink) 30%, var(--gold-dark) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .occasion {
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    opacity: 0;
+    animation: revealDown 0.8s ease-out 0.8s forwards;
+  }
+
+  .laurel {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: auto;
+    opacity: 0.4;
+  }
+  .laurel--left { left: -65px; }
+  .laurel--right { right: -65px; transform: translateY(-50%) scaleX(-1); }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0;
+    animation: revealDown 0.8s ease-out 1.5s forwards;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    text-decoration: none;
+  }
+
+  .scroll-hint:hover { transform: translateY(3px); }
+
+  .scroll-hint span {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+  }
+
+  .scroll-arrow {
+    width: 20px;
+    height: 20px;
+    border-right: 1px solid var(--gold-dark);
+    border-bottom: 1px solid var(--gold-dark);
+    transform: rotate(45deg);
+    animation: bobDown 2s ease-in-out infinite;
+  }
+
+  @keyframes bobDown {
+    0%, 100% { transform: rotate(45deg) translateY(0); }
+    50% { transform: rotate(45deg) translateY(5px); }
+  }
+
+  /* === COUNTDOWN === */
+  .countdown-section {
+    padding: 4rem 2rem;
+    text-align: center;
+    position: relative;
+    background: linear-gradient(180deg, var(--cream-dark) 0%, var(--marble) 50%, var(--cream-dark) 100%);
+  }
+
+  .countdown-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    margin-bottom: 1.5rem;
+  }
+
+  .countdown {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .countdown-unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    min-width: 80px;
+    transition: transform 0.3s ease;
+  }
+
+  .countdown-unit:hover { transform: translateY(-4px); }
+
+  .countdown-number {
+    font-family: 'Cinzel', serif;
+    font-size: 2.8rem;
+    font-weight: 600;
+    color: var(--gold-dark);
+    line-height: 1;
+    transition: color 0.3s ease;
+  }
+
+  .countdown-unit:hover .countdown-number { color: var(--ink); }
+
+  .countdown-text {
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--warm-gray);
+  }
+
+  /* === DETAILS === */
+  .details-section {
+    padding: 4rem 2rem;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .detail-card {
+    border: 1px solid rgba(201, 168, 76, 0.2);
+    padding: 2.5rem 2rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease, border-color 0.4s ease, background 0.4s ease;
+    background: rgba(255, 255, 255, 0.5);
+  }
+
+  .detail-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .detail-card:hover {
+    border-color: rgba(201, 168, 76, 0.5);
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 4px 24px rgba(160, 126, 46, 0.08);
+  }
+
+  .detail-card::before {
+    content: '';
+    position: absolute;
+    top: 8px; left: 8px; right: 8px; bottom: 8px;
+    border: 1px solid rgba(201, 168, 76, 0.1);
+    pointer-events: none;
+    transition: border-color 0.4s ease;
+  }
+
+  .detail-card:hover::before { border-color: rgba(201, 168, 76, 0.25); }
+
+  .detail-icon {
+    width: 36px;
+    height: 36px;
+    margin: 0 auto 1rem;
+    opacity: 0.5;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .detail-card:hover .detail-icon {
+    opacity: 0.8;
+    transform: scale(1.1);
+  }
+
+  .detail-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    margin-bottom: 0.5rem;
+  }
+
+  .detail-value {
+    font-family: 'Cinzel', serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+
+  .detail-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--warm-gray);
+    font-style: italic;
+    margin-top: 0.3rem;
+  }
+
+  .map-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    padding: 0.6rem 1.6rem;
+    color: var(--gold-dark);
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid var(--gold);
+    transition: all 0.4s ease;
+    background: transparent;
+  }
+
+  .map-btn:hover {
+    background: var(--gold);
+    color: white;
+    border-color: var(--gold);
+    box-shadow: 0 4px 16px rgba(201, 168, 76, 0.25);
+  }
+
+  .map-btn svg {
+    width: 14px;
+    height: 14px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.5;
+  }
+
+  /* === NOTES === */
+  .notes-section {
+    padding: 3rem 2rem 4rem;
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .notes-title {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    margin-bottom: 2rem;
+  }
+
+  .note-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    text-align: left;
+    padding: 1.2rem 0;
+    border-bottom: 1px solid rgba(201, 168, 76, 0.12);
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: all 0.6s ease;
+  }
+
+  .note-item.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .note-icon {
+    font-size: 1.4rem;
+    flex-shrink: 0;
+    width: 32px;
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+
+  .note-item:hover .note-icon { transform: scale(1.15); }
+
+  .note-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    font-weight: 300;
+    color: var(--text-mid);
+    line-height: 1.7;
+  }
+
+  .note-text .highlight {
+    color: var(--gold-dark);
+    font-weight: 400;
+  }
+
+  /* === RSVP === */
+  .rsvp-section {
+    padding: 4rem 2rem 5rem;
+    text-align: center;
+    position: relative;
+    background: linear-gradient(180deg, var(--cream) 0%, var(--cream-dark) 100%);
+  }
+
+  .rsvp-label {
+    font-family: 'Noto Serif Display', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 1.6rem;
+    color: var(--gold-dark);
+    margin-bottom: 0.3rem;
+  }
+
+  .rsvp-sublabel {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--warm-gray);
+    margin-bottom: 2rem;
+  }
+
+  .rsvp-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+
+  .rsvp-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.9rem 2.2rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .rsvp-btn--call {
+    color: var(--cream);
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+    border: none;
+  }
+
+  .rsvp-btn--call:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(201, 168, 76, 0.35);
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    color: var(--ink);
+  }
+
+  .rsvp-btn--sms {
+    color: var(--gold-dark);
+    background: transparent;
+    border: 1.5px solid var(--gold);
+  }
+
+  .rsvp-btn--sms:hover {
+    background: rgba(201, 168, 76, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(201, 168, 76, 0.15);
+  }
+
+  .rsvp-btn svg {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .rsvp-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    font-weight: 400;
+    color: var(--text-mid);
+    margin-bottom: 0.5rem;
+  }
+
+  .rsvp-note {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.95rem;
+    color: var(--warm-gray);
+    font-style: italic;
+    margin-top: 0.8rem;
+  }
+
+  .greek-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1.5rem 0;
+  }
+
+  .greek-divider__line {
+    width: 50px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  .greek-divider__symbol {
+    font-family: 'Cinzel', serif;
+    font-size: 0.9rem;
+    color: var(--gold);
+    opacity: 0.5;
+  }
+
+  .footer-wrap {
+    padding: 2rem;
+    text-align: center;
+    background: var(--cream-dark);
+  }
+
+  .footer-text {
+    font-family: 'Noto Serif Display', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 0.95rem;
+    color: var(--gold-dark);
+  }
+
+  @keyframes revealDown {
+    from { opacity: 0; transform: translateY(-15px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes revealScale {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  /* Content hidden until login */
+  .main-content {
+    display: none;
+  }
+
+  .main-content.unlocked {
+    display: block;
+  }
+
+  @media (max-width: 600px) {
+    .countdown { gap: 1rem; }
+    .countdown-number { font-size: 2rem; }
+    .countdown-unit { min-width: 65px; }
+    .detail-card { padding: 2rem 1.2rem; }
+    .laurel { display: none; }
+    .olive-left, .olive-right { display: none; }
+    .login-box { padding: 2.5rem 1.5rem; }
+    .rsvp-buttons { flex-direction: column; align-items: center; }
+    .rsvp-btn { width: 100%; max-width: 280px; justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== LOGIN GATE ===== -->
+<div class="login-overlay" id="loginOverlay">
+  <div class="login-box">
+    <div class="login-meander login-meander--top">
+      <svg viewBox="0 0 800 30" preserveAspectRatio="none" fill="none" stroke="var(--gold)" stroke-width="1">
+        <pattern id="ml" x="0" y="0" width="50" height="30" patternUnits="userSpaceOnUse">
+          <polyline points="0,22 8,22 8,8 24,8 24,22 32,22 32,8 50,8 50,22"/>
+        </pattern>
+        <rect width="800" height="30" fill="url(#ml)" stroke="none"/>
+      </svg>
+    </div>
+
+    <svg class="login-laurel" viewBox="0 0 60 80" fill="none">
+      <path d="M30 5 Q28 20 30 40 Q32 60 28 75" stroke="var(--gold)" stroke-width="0.8"/>
+      <ellipse cx="22" cy="18" rx="10" ry="5" transform="rotate(-35 22 18)" fill="var(--gold)" opacity="0.2"/>
+      <ellipse cx="38" cy="30" rx="10" ry="5" transform="rotate(30 38 30)" fill="var(--gold)" opacity="0.18"/>
+      <ellipse cx="22" cy="45" rx="10" ry="5" transform="rotate(-30 22 45)" fill="var(--gold)" opacity="0.15"/>
+      <ellipse cx="36" cy="58" rx="9" ry="4.5" transform="rotate(25 36 58)" fill="var(--gold)" opacity="0.12"/>
+    </svg>
+
+    <h2 class="login-title">Private Invitation</h2>
+    <p class="login-subtitle">Enter your credentials to view</p>
+
+    <div class="login-field">
+      <label for="username">Name</label>
+      <input type="text" id="username" placeholder="Your name" autocomplete="off">
+    </div>
+
+    <div class="login-field">
+      <label for="accesscode">Access Code</label>
+      <input type="password" id="accesscode" placeholder="Enter your code" autocomplete="off">
+    </div>
+
+    <button class="login-btn" id="loginBtn">Enter</button>
+    <p class="login-error" id="loginError"></p>
+
+    <div class="login-meander login-meander--bottom">
+      <svg viewBox="0 0 800 30" preserveAspectRatio="none" fill="none" stroke="var(--gold)" stroke-width="1">
+        <pattern id="ml2" x="0" y="0" width="50" height="30" patternUnits="userSpaceOnUse">
+          <polyline points="0,22 8,22 8,8 24,8 24,22 32,22 32,8 50,8 50,22"/>
+        </pattern>
+        <rect width="800" height="30" fill="url(#ml2)" stroke="none"/>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MAIN CONTENT ===== -->
+<div class="main-content" id="mainContent">
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="particles" id="particles"></div>
+
+  <div class="meander-top">
+    <svg class="meander-svg" viewBox="0 0 1200 40" preserveAspectRatio="none" fill="none" stroke="var(--gold)" stroke-width="1.2">
+      <pattern id="meander" x="0" y="0" width="60" height="40" patternUnits="userSpaceOnUse">
+        <polyline points="0,30 10,30 10,10 30,10 30,30 40,30 40,10 60,10 60,30"/>
+      </pattern>
+      <rect width="1200" height="40" fill="url(#meander)" stroke="none"/>
+      <line x1="0" y1="30" x2="1200" y2="30" stroke="var(--gold)" stroke-width="0.5" opacity="0.3"/>
+    </svg>
+  </div>
+  <div class="meander-bottom">
+    <svg class="meander-svg" viewBox="0 0 1200 40" preserveAspectRatio="none" fill="none" stroke="var(--gold)" stroke-width="1.2">
+      <pattern id="meander2" x="0" y="0" width="60" height="40" patternUnits="userSpaceOnUse">
+        <polyline points="0,30 10,30 10,10 30,10 30,30 40,30 40,10 60,10 60,30"/>
+      </pattern>
+      <rect width="1200" height="40" fill="url(#meander2)" stroke="none"/>
+    </svg>
+  </div>
+
+  <svg class="olive-left" viewBox="0 0 60 200" fill="none">
+    <path d="M30 10 Q28 50 30 100 Q32 150 28 190" stroke="var(--olive)" stroke-width="1"/>
+    <ellipse cx="22" cy="35" rx="10" ry="5" transform="rotate(-30 22 35)" fill="var(--olive)" opacity="0.5"/>
+    <ellipse cx="38" cy="55" rx="10" ry="5" transform="rotate(25 38 55)" fill="var(--olive)" opacity="0.45"/>
+    <ellipse cx="20" cy="80" rx="10" ry="5" transform="rotate(-20 20 80)" fill="var(--olive)" opacity="0.4"/>
+    <ellipse cx="36" cy="105" rx="10" ry="5" transform="rotate(30 36 105)" fill="var(--olive)" opacity="0.45"/>
+    <ellipse cx="22" cy="130" rx="10" ry="5" transform="rotate(-25 22 130)" fill="var(--olive)" opacity="0.35"/>
+    <ellipse cx="35" cy="155" rx="9" ry="4.5" transform="rotate(20 35 155)" fill="var(--olive)" opacity="0.3"/>
+    <circle cx="25" cy="45" r="2.5" fill="var(--terracotta)" opacity="0.5"/>
+    <circle cx="34" cy="90" r="2.5" fill="var(--terracotta)" opacity="0.45"/>
+    <circle cx="26" cy="140" r="2.5" fill="var(--terracotta)" opacity="0.35"/>
+  </svg>
+  <svg class="olive-right" viewBox="0 0 60 200" fill="none">
+    <path d="M30 10 Q28 50 30 100 Q32 150 28 190" stroke="var(--olive)" stroke-width="1"/>
+    <ellipse cx="22" cy="35" rx="10" ry="5" transform="rotate(-30 22 35)" fill="var(--olive)" opacity="0.5"/>
+    <ellipse cx="38" cy="55" rx="10" ry="5" transform="rotate(25 38 55)" fill="var(--olive)" opacity="0.45"/>
+    <ellipse cx="20" cy="80" rx="10" ry="5" transform="rotate(-20 20 80)" fill="var(--olive)" opacity="0.4"/>
+    <ellipse cx="36" cy="105" rx="10" ry="5" transform="rotate(30 36 105)" fill="var(--olive)" opacity="0.45"/>
+    <ellipse cx="22" cy="130" rx="10" ry="5" transform="rotate(-25 22 130)" fill="var(--olive)" opacity="0.35"/>
+    <circle cx="25" cy="45" r="2.5" fill="var(--terracotta)" opacity="0.5"/>
+    <circle cx="34" cy="90" r="2.5" fill="var(--terracotta)" opacity="0.45"/>
+  </svg>
+
+  <p class="prelude">Σας προσκαλώ στα γενέθλιά μου | You are invited to my birtday</p>
+
+  <div class="name-wrap">
+    <svg class="laurel laurel--left" viewBox="0 0 50 120" fill="none">
+      <path d="M40 10 Q35 30 38 60 Q40 90 35 110" stroke="var(--gold)" stroke-width="0.8"/>
+      <ellipse cx="30" cy="25" rx="10" ry="5" transform="rotate(-40 30 25)" fill="var(--gold)" opacity="0.2"/>
+      <ellipse cx="28" cy="45" rx="10" ry="5" transform="rotate(-35 28 45)" fill="var(--gold)" opacity="0.18"/>
+      <ellipse cx="30" cy="65" rx="10" ry="5" transform="rotate(-30 30 65)" fill="var(--gold)" opacity="0.15"/>
+      <ellipse cx="28" cy="85" rx="10" ry="5" transform="rotate(-35 28 85)" fill="var(--gold)" opacity="0.12"/>
+    </svg>
+    <svg class="laurel laurel--right" viewBox="0 0 50 120" fill="none">
+      <path d="M40 10 Q35 30 38 60 Q40 90 35 110" stroke="var(--gold)" stroke-width="0.8"/>
+      <ellipse cx="30" cy="25" rx="10" ry="5" transform="rotate(-40 30 25)" fill="var(--gold)" opacity="0.2"/>
+      <ellipse cx="28" cy="45" rx="10" ry="5" transform="rotate(-35 28 45)" fill="var(--gold)" opacity="0.18"/>
+      <ellipse cx="30" cy="65" rx="10" ry="5" transform="rotate(-30 30 65)" fill="var(--gold)" opacity="0.15"/>
+      <ellipse cx="28" cy="85" rx="10" ry="5" transform="rotate(-35 28 85)" fill="var(--gold)" opacity="0.12"/>
+    </svg>
+    <h1 class="name">Argyrios</h1>
+  </div>
+
+  <p class="occasion">Birthday Celebration</p>
+
+  <a href="#details" class="scroll-hint">
+    <span>Discover the details</span>
+    <div class="scroll-arrow"></div>
+  </a>
+</section>
+
+<!-- COUNTDOWN -->
+<section class="countdown-section">
+  <div class="greek-divider">
+    <span class="greek-divider__line"></span>
+    <span class="greek-divider__symbol">☽</span>
+    <span class="greek-divider__line"></span>
+  </div>
+  <p class="countdown-label">The celebration begins in</p>
+  <div class="countdown" id="countdown">
+    <div class="countdown-unit">
+      <span class="countdown-number" id="cd-days">--</span>
+      <span class="countdown-text">Days</span>
+    </div>
+    <div class="countdown-unit">
+      <span class="countdown-number" id="cd-hours">--</span>
+      <span class="countdown-text">Hours</span>
+    </div>
+    <div class="countdown-unit">
+      <span class="countdown-number" id="cd-mins">--</span>
+      <span class="countdown-text">Minutes</span>
+    </div>
+    <div class="countdown-unit">
+      <span class="countdown-number" id="cd-secs">--</span>
+      <span class="countdown-text">Seconds</span>
+    </div>
+  </div>
+  <div class="greek-divider">
+    <span class="greek-divider__line"></span>
+    <span class="greek-divider__symbol">✦</span>
+    <span class="greek-divider__line"></span>
+  </div>
+</section>
+
+<!-- DETAILS -->
+<section class="details-section" id="details">
+  <div class="detail-card" data-reveal>
+    <svg class="detail-icon" viewBox="0 0 36 36" fill="none" stroke="var(--gold-dark)" stroke-width="1">
+      <rect x="4" y="6" width="28" height="26" rx="2"/>
+      <line x1="4" y1="14" x2="32" y2="14"/>
+      <line x1="12" y1="2" x2="12" y2="8"/>
+      <line x1="24" y1="2" x2="24" y2="8"/>
+    </svg>
+    <p class="detail-label">Date</p>
+    <p class="detail-value">Saturday, 21 February 2026</p>
+  </div>
+
+  <div class="detail-card" data-reveal>
+    <svg class="detail-icon" viewBox="0 0 36 36" fill="none" stroke="var(--gold-dark)" stroke-width="1">
+      <circle cx="18" cy="18" r="14"/>
+      <line x1="18" y1="18" x2="18" y2="10"/>
+      <line x1="18" y1="18" x2="25" y2="18"/>
+      <circle cx="18" cy="18" r="1.5" fill="var(--gold-dark)"/>
+    </svg>
+    <p class="detail-label">Time</p>
+    <p class="detail-value">19:00</p>
+  </div>
+
+  <div class="detail-card" data-reveal>
+    <svg class="detail-icon" viewBox="0 0 36 36" fill="none" stroke="var(--gold-dark)" stroke-width="1">
+      <path d="M18 4C13 4 8 8 8 14c0 8 10 18 10 18s10-10 10-18c0-6-5-10-10-10z"/>
+      <circle cx="18" cy="14" r="3.5"/>
+    </svg>
+    <p class="detail-label">Location</p>
+    <p class="detail-value">Alfhöjdsgatan 3</p>
+    <p class="detail-sub">431 38 Mölndal</p>
+    <a href="https://share.google/zrgixpOtegLkozTBR" target="_blank" class="map-btn">
+      <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+      <span>Open Map & Directions</span>
+    </a>
+  </div>
+</section>
+
+<!-- NOTES -->
+<section class="notes-section">
+  <p class="notes-title">Things to know</p>
+
+  <div class="note-item" data-reveal>
+    <span class="note-icon">🍽</span>
+    <p class="note-text">Food will be prepared for you. Please share any <span class="highlight">dietary restrictions</span> when you RSVP.</p>
+  </div>
+
+  <div class="note-item" data-reveal>
+    <span class="note-icon">🍷</span>
+    <p class="note-text">Bring your own drinks — there will be some available as well. Let me know any <span class="highlight">alcohol preferences</span>.</p>
+  </div>
+
+  <div class="note-item" data-reveal>
+    <span class="note-icon">🌙</span>
+    <p class="note-text">Around <span class="highlight">23:00</span>, due to quiet hours, we'll continue the party elsewhere — perhaps a club downtown.</p>
+  </div>
+</section>
+
+<!-- RSVP -->
+<section class="rsvp-section">
+  <div class="greek-divider">
+    <span class="greek-divider__line"></span>
+    <span class="greek-divider__symbol">✦</span>
+    <span class="greek-divider__line"></span>
+  </div>
+
+  <p class="rsvp-label">Répondez s'il vous plaît</p>
+  <p class="rsvp-sublabel">Please include dietary & drink preferences</p>
+
+  <p class="rsvp-number">079 341 69 96</p>
+
+  <div class="rsvp-buttons">
+    <a href="tel:+46793416996" class="rsvp-btn rsvp-btn--call">
+      <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+      <span>Call me</span>
+    </a>
+    <a href="sms:+46793416996" class="rsvp-btn rsvp-btn--sms">
+      <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+      <span>Send a text</span>
+    </a>
+  </div>
+
+  <p class="rsvp-note">I look forward to celebrating with you</p>
+
+  <div class="greek-divider" style="margin-top:2rem;">
+    <span class="greek-divider__line"></span>
+    <span class="greek-divider__symbol">☽</span>
+    <span class="greek-divider__line"></span>
+  </div>
+</section>
+
+<div class="footer-wrap">
+  <p class="footer-text">Χρόνια πολλά ✦ Happy Birthday</p>
+</div>
+
+</div><!-- end main-content -->
+
+<script>
+  /*
+   * =============================================
+   *  LOGIN CREDENTIALS - EDIT THESE
+   * =============================================
+   *  Add your guests as username:code pairs.
+   *  Usernames are case-insensitive.
+   *  Example:
+   *    "maria": "party2026",
+   *    "nikos": "celebrate",
+   */
+  const VALID_CREDENTIALS = {
+    "guest": "argyrios2026",
+    "salla": "HappyFin2026",
+    "anita": "CrazyItalian2026",
+    "tomo": "FutureHusband2026",
+    "orestis": "SlutyGreek2026",
+    "clem": "TheFrenchWeLike2026",
+    "anton": "CoolSwed2026",
+    "joaquin": "Anitaxoxo2026"
+    // Add more guests here:
+    // "friendname": "theircode",
+  };
+
+  // Login logic
+  const overlay = document.getElementById('loginOverlay');
+  const mainContent = document.getElementById('mainContent');
+  const loginBtn = document.getElementById('loginBtn');
+  const usernameInput = document.getElementById('username');
+  const codeInput = document.getElementById('accesscode');
+  const errorMsg = document.getElementById('loginError');
+
+  function attemptLogin() {
+    const name = usernameInput.value.trim().toLowerCase();
+    const code = codeInput.value.trim();
+
+    if (!name || !code) {
+      errorMsg.textContent = 'Please enter both your name and access code.';
+      return;
+    }
+
+    if (VALID_CREDENTIALS[name] && VALID_CREDENTIALS[name] === code) {
+      overlay.classList.add('hidden');
+      mainContent.classList.add('unlocked');
+      initPage();
+    } else {
+      errorMsg.textContent = 'Invalid name or code. Please try again.';
+      codeInput.value = '';
+      codeInput.focus();
+    }
+  }
+
+  loginBtn.addEventListener('click', attemptLogin);
+
+  // Allow Enter key to submit
+  usernameInput.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') { e.preventDefault(); codeInput.focus(); }
+  });
+  codeInput.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') { e.preventDefault(); attemptLogin(); }
+  });
+
+  // Initialize page after login
+  function initPage() {
+    // Floating particles
+    var particlesEl = document.getElementById('particles');
+    for (var i = 0; i < 25; i++) {
+      var p = document.createElement('div');
+      p.className = 'particle';
+      p.style.left = Math.random() * 100 + '%';
+      p.style.animationDuration = (6 + Math.random() * 8) + 's';
+      p.style.animationDelay = (Math.random() * 10) + 's';
+      p.style.width = p.style.height = (2 + Math.random() * 3) + 'px';
+      particlesEl.appendChild(p);
+    }
+
+    // Countdown
+    var partyDate = new Date('2026-02-21T19:00:00+01:00');
+
+    function updateCountdown() {
+      var now = new Date();
+      var diff = partyDate - now;
+
+      if (diff <= 0) {
+        document.getElementById('cd-days').textContent = '0';
+        document.getElementById('cd-hours').textContent = '0';
+        document.getElementById('cd-mins').textContent = '0';
+        document.getElementById('cd-secs').textContent = '0';
+        return;
+      }
+
+      var days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      var secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+      document.getElementById('cd-days').textContent = days;
+      document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
+      document.getElementById('cd-mins').textContent = String(mins).padStart(2, '0');
+      document.getElementById('cd-secs').textContent = String(secs).padStart(2, '0');
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // Scroll reveal
+    var revealElements = document.querySelectorAll('[data-reveal]');
+
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry, i) {
+        if (entry.isIntersecting) {
+          setTimeout(function() {
+            entry.target.classList.add('visible');
+          }, i * 120);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    revealElements.forEach(function(el) { observer.observe(el); });
+
+    // Parallax olive branches
+    var hero = document.getElementById('hero');
+    hero.addEventListener('mousemove', function(e) {
+      var rect = hero.getBoundingClientRect();
+      var x = (e.clientX - rect.left) / rect.width - 0.5;
+      var y = (e.clientY - rect.top) / rect.height - 0.5;
+
+      var oliveL = document.querySelector('.olive-left');
+      var oliveR = document.querySelector('.olive-right');
+      if (oliveL) oliveL.style.transform = 'translateY(calc(-50% + ' + (y * 10) + 'px)) translateX(' + (x * 5) + 'px)';
+      if (oliveR) oliveR.style.transform = 'translateY(calc(-50% + ' + (y * 10) + 'px)) scaleX(-1) translateX(' + (x * 5) + 'px)';
+    });
+  }
+</script>
+
+</body>
+</html>
